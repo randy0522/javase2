@@ -21,7 +21,7 @@
 	</build>
 
 	<properties>
-		<jackson.versin>2.9.8</jackson.versin>
+		<jackson.versin>2.11.2</jackson.versin>
 	</properties>
 
 	<dependencies>
