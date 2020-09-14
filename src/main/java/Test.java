@@ -2,11 +2,15 @@ import org.apache.commons.validator.routines.InetAddressValidator;
 import org.omg.PortableServer.THREAD_POLICY_ID;
 
 import java.io.*;
+import java.nio.ByteBuffer;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.function.*;
 
 /**
  * Created by nali on 2018/5/28.
@@ -140,5 +144,115 @@ public class Test {
 		String format = simpleDateFormat.format(calendar.getTime());
 		System.out.println(calendar.isWeekDateSupported());
 		System.out.println(format);
+	}
+
+	@org.junit.Test
+	public void testHash() {
+		ByteBuffer byteBuffer = ByteBuffer.allocate(8);
+		byteBuffer.putInt(3);
+
+	}
+
+	@org.junit.Test
+	public void test2s2() {
+		Integer opertaion = opertaion(100, x -> x);
+		System.out.println(opertaion);
+
+		Arrays.asList(
+				1, 2
+		);
+	}
+
+	private Integer opertaion(Integer num, MyFun myFun) {
+		return myFun.getValue(num);
+	}
+
+	@org.junit.Test
+	public void test223() {
+		List<Integer> numbers = getNumbers(10, () -> (int) (Math.random() * 100));
+		numbers.forEach(System.out::println);
+	}
+
+
+	public static List<Integer> getNumbers(int numCount, Supplier<Integer> supplier) {
+		List<Integer> numbers = new ArrayList<>(numCount);
+		for (int i = 0; i < numCount; i++) {
+			numbers.add(supplier.get());
+		}
+		return numbers;
+	}
+
+	@org.junit.Test
+	public void test224() {
+		consume(100, monney -> System.out.println("消费金额" + monney));
+	}
+
+	public static void consume(double b, Consumer<Double> consumer) {
+		consumer.accept(b);
+	}
+
+	@org.junit.Test
+	public void test225() {
+		String randy = strHandler("randy", String::toUpperCase);
+		System.out.println(randy);
+	}
+
+	public String strHandler(String str, Function<String, String> function) {
+		return function.apply(str);
+	}
+
+	@org.junit.Test
+	public void test226() {
+		List<String> list = Arrays.asList("1AAAAdddd", "333ddd3", "111");
+		List<String> filter = filter(list, value -> value.length() > 3);
+		filter.forEach(System.out::println);
+	}
+
+	public List<String> filter(List<String> list, Predicate<String> predicate) {
+		List<String> list1 = new ArrayList<>();
+		for (String s : list) {
+			if (predicate.test(s)) {
+				list1.add(s);
+			}
+		}
+		return list1;
+	}
+
+	@org.junit.Test
+	public void test227() {
+		Consumer consumer = x -> System.out.println(x);
+		PrintStream out = System.out;
+		Consumer consumer1 = out::println;
+		consumer1.accept(3);
+
+	}
+
+	@org.junit.Test
+	public void test228(){
+		BiPredicate<String, String> b1 = (x, y) -> x.equals(y);
+
+		BiPredicate<String, String> b2 = String::equals;
+
+		Function<Integer, String[]> function = String[]::new;
+	}
+
+	@org.junit.Test
+	public void test229() {
+		Arrays.stream(Test.class.getMethods()).forEach(method -> {
+			if (Void.TYPE.equals(method.getReturnType())){
+				System.out.println(method.getName());
+			}
+		});
+	}
+
+	Void function(int a, int b) {
+		HashMap hashMap = new HashMap();
+		hashMap.entrySet();
+		Future<Void> submit = Executors.newCachedThreadPool().submit(() -> {
+			System.out.println("sss"); return null;
+		});
+
+
+		return null;
 	}
 }
